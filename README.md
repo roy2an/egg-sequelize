@@ -50,6 +50,8 @@ exports.sequelize = {
   password: '',
 };
 
+or
+
 exports.sequelize = [{
   dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
   database: 'db1',
@@ -65,6 +67,12 @@ exports.sequelize = [{
   username: 'root',
   password: '',
 }];
+
+
+app.dbs[0] = app.dbs.db1 = app.model
+app.dbs[1] = app.dbs.db2
+app.dbs[2] = app.dbs.db3
+...
 
 ```
 
