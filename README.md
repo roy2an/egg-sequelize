@@ -69,9 +69,9 @@ exports.sequelize = [{
 }];
 
 
-app.dbs[0] = app.dbs.db1 = app.model
-app.dbs[1] = app.dbs.db2
-app.dbs[2] = app.dbs.db3
+ctx.dbs[0] = app.dbs[0] = app.dbs.db1 = app.model
+ctx.dbs[1] = app.dbs[1] = app.dbs.db2
+ctx.dbs[2] = app.dbs[2] = app.dbs.db3
 ...
 
 ```
