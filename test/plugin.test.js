@@ -14,6 +14,7 @@ describe('test/plugin.test.js', () => {
     return app.ready();
   });
   before(() => app.model.sync({ force: true }));
+  before(() => app.dbs.ga.sync({ force: true }));
 
   after(mm.restore);
 
@@ -28,6 +29,15 @@ describe('test/plugin.test.js', () => {
       assert.ok(ctx.model.User);
       assert.ok(ctx.model.Subfolder_Monkey);
       assert.ok(ctx.model.Subfolder_Person);
+      assert.ok(ctx.dbs.ga.Tracing);
+    });
+
+    it('app model property getter', () => {
+      assert.ok(app.model);
+      assert.ok(app.model.User);
+      assert.ok(app.model.Subfolder_Monkey);
+      assert.ok(app.model.Subfolder_Person);
+      assert.ok(app.dbs.ga.Tracing);
     });
 
     it('model not load non Sequelize files', function* () {

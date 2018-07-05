@@ -49,6 +49,23 @@ exports.sequelize = {
   username: 'root',
   password: '',
 };
+
+exports.sequelize = [{
+  dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
+  database: 'db1',
+  host: 'localhost',
+  port: '3306',
+  username: 'root',
+  password: '',
+},{
+  dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
+  database: 'db2',
+  host: 'localhost',
+  port: '3306',
+  username: 'root',
+  password: '',
+}];
+
 ```
 
 - `config/plugin.js`
