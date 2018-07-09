@@ -4,7 +4,7 @@ module.exports = {
   get model() {
     return this.app.model;
   },
-  get dbs() {
-    return this.app.dbs;
+  get models() {
+    return this.app.models;
   },
 };

@@ -69,9 +69,9 @@ exports.sequelize = [{
 }];
 
 
-ctx.dbs[0] = app.dbs[0] = app.dbs.db1 = app.model
-ctx.dbs[1] = app.dbs[1] = app.dbs.db2
-ctx.dbs[2] = app.dbs[2] = app.dbs.db3
+ctx.models[0] = app.models[0] = app.models.db1 = app.model
+ctx.models[1] = app.models[1] = app.models.db2
+ctx.models[2] = app.models[2] = app.models.db3
 ...
 
 ```
@@ -106,10 +106,10 @@ Please put models under `app/model` dir.
 
 | folder         | model file        | db     | class name                                                                                      |
 | -------------- | ----------------- | ------ | ----------------------------------------------------------------------------------------------- |
-| `.`            | `user.js`         | `db1`  | `app.model.User` or `app.dbs[0].User` or `app.dbs.db1.User`                                     |
-| `.`            | `person.js`       | `db1`  | `app.model.Person` or `app.dbs[0].Person` or `app.dbs.db1.Person`                               |
-| `.`            | `user_group.js`   | `db2`  | `app.dbs[1].UserGroup` or `app.dbs.db2.UserGroup`                                               |
-| `./subfolder/` | `monkey.js`       | `db1`  | `app.model.Subfolder_Monkey` or `app.dbs[0].Subfolder_Monkey` or `app.dbs.db1.Subfolder_Monkey` |
+| `.`            | `user.js`         | `db1`  | `app.model.User` or `app.models[0].User` or `app.models.db1.User`                                     |
+| `.`            | `person.js`       | `db1`  | `app.model.Person` or `app.models[0].Person` or `app.models.db1.Person`                               |
+| `.`            | `user_group.js`   | `db2`  | `app.models[1].UserGroup` or `app.models.db2.UserGroup`                                               |
+| `./subfolder/` | `monkey.js`       | `db1`  | `app.model.Subfolder_Monkey` or `app.models[0].Subfolder_Monkey` or `app.models.db1.Subfolder_Monkey` |
 
 - Tables always has timestamp fields: `created_at datetime`, `updated_at datetime`.
 - Use underscore style column name, for example: `user_id`, `comments_count`.
@@ -128,8 +128,8 @@ Define a model first.
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
-  //const User = app.dbs[0].define('user', {
-  //const User = app.dbs.db1.define('user', {
+  //const User = app.models[0].define('user', {
+  //const User = app.models.db1.define('user', {
   const User = app.model.define('user', {
     login: STRING,
     name: STRING(30),
@@ -164,15 +164,15 @@ Now you can use it in your controller:
 module.exports = app => {
   return class UserController extends app.Controller {
     * index() {
-      //const users = yield this.ctx.dbs[0].User.findAll();
-      //const users = yield this.ctx.dbs.db1.User.findAll();
+      //const users = yield this.ctx.models[0].User.findAll();
+      //const users = yield this.ctx.models.db1.User.findAll();
       const users = yield this.ctx.model.User.findAll();
       this.ctx.body = users;
     }
 
     * show() {
-      //const user = yield this.ctx.dbs[0].User.findByLogin(this.ctx.params.login);
-      //const user = yield this.ctx.dbs.db1.User.findByLogin(this.ctx.params.login);
+      //const user = yield this.ctx.models[0].User.findByLogin(this.ctx.params.login);
+      //const user = yield this.ctx.models.db1.User.findByLogin(this.ctx.params.login);
       const user = yield this.ctx.model.User.findByLogin(this.ctx.params.login);
       yield user.logSignin();
       this.ctx.body = user;
@@ -189,8 +189,8 @@ module.exports = app => {
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
-  //const Post = app.dbs[0].define('Post', {
-  //const Post = app.dbs.db1.define('Post', {
+  //const Post = app.models[0].define('Post', {
+  //const Post = app.models.db1.define('Post', {
   const Post = app.model.define('Post', {
     name: STRING(30),
     user_id: INTEGER,
@@ -199,8 +199,8 @@ module.exports = app => {
   });
 
   Post.associate = function() {
-    // app.dbs[0].Post.belongsTo(app.dbs[0].User, { as: 'user' });
-    // app.dbs.db1.Post.belongsTo(app.dbs.db1.User, { as: 'user' });
+    // app.models[0].Post.belongsTo(app.models[0].User, { as: 'user' });
+    // app.models.db1.Post.belongsTo(app.models.db1.User, { as: 'user' });
     app.model.Post.belongsTo(app.model.User, { as: 'user' });
   }
 
@@ -214,8 +214,8 @@ module.exports = app => {
 module.exports = app => {
   return class PostController extends app.Controller {
     * index() {
-      //const posts = yield this.ctx.dbs[0].Post.findAll({
-      //const posts = yield this.ctx.dbs.db1.Post.findAll({
+      //const posts = yield this.ctx.models[0].Post.findAll({
+      //const posts = yield this.ctx.models.db1.Post.findAll({
       const posts = yield this.ctx.model.Post.findAll({
         attributes: [ 'id', 'user_id' ],
         include: { model: this.ctx.model.User, as: 'user' },
@@ -227,8 +227,8 @@ module.exports = app => {
     }
 
     * show() {
-      //const post = yield this.ctx.dbs[0].Post.findById(this.params.id);
-      //const post = yield this.ctx.dbs.db1.Post.findById(this.params.id);
+      //const post = yield this.ctx.models[0].Post.findById(this.params.id);
+      //const post = yield this.ctx.models.db1.Post.findById(this.params.id);
       const post = yield this.ctx.model.Post.findById(this.params.id);
       const user = yield post.getUser();
       post.setDataValue('user', user);
@@ -236,8 +236,8 @@ module.exports = app => {
     }
 
     * destroy() {
-      //const post = yield this.ctx.dbs[0].Post.findById(this.params.id);
-      //const post = yield this.ctx.dbs.db1.Post.findById(this.params.id);
+      //const post = yield this.ctx.models[0].Post.findById(this.params.id);
+      //const post = yield this.ctx.models.db1.Post.findById(this.params.id);
       const post = yield this.ctx.model.Post.findById(this.params.id);
       yield post.destroy();
       this.ctx.body = { success: true };
@@ -257,8 +257,8 @@ module.exports = app => {
   module.exports = app => {
     if (app.config.env === 'local') {
       app.beforeStart(function* () {
-        //yield app.dbs[0].sync({force: true});
-        //yield app.dbs.db1.sync({force: true});
+        //yield app.models[0].sync({force: true});
+        //yield app.models.db1.sync({force: true});
         yield app.model.sync({force: true});
       });
     }
