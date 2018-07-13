@@ -16,8 +16,6 @@ const getConfig = function(time) {
             min: 0,
             idle: 10000,
           },
-          storage: 'db/test-foo.sqlite',
-          timezone: '+08:01',
           authenticated(sequelize) {
             sequelize.sync();
           },
@@ -33,8 +31,6 @@ const getConfig = function(time) {
             min: 0,
             idle: 10000,
           },
-          storage: 'db/test-foo.sqlite',
-          timezone: '+08:01',
           authenticated(sequelize) {
             sequelize.sync();
           },
@@ -61,8 +57,6 @@ exports.sequelize = async () => {
 //               min: 0,
 //               idle: 10000,
 //             },
-//             storage: 'db/test-foo.sqlite',
-//             timezone: '+08:01',
 //           }, {
 //             port: '3306',
 //             host: '127.0.0.1',
@@ -75,8 +69,6 @@ exports.sequelize = async () => {
 //               min: 0,
 //               idle: 10000,
 //             },
-//             storage: 'db/test-foo.sqlite',
-//             timezone: '+08:01',
 //           }]
 
 exports.keys = '0jN4Fw7ZBjo4xtrLklDg4g==';
