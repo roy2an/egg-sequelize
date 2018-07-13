@@ -68,6 +68,58 @@ exports.sequelize = [{
   password: '',
 }];
 
+or 
+
+// const getConfig = function(time) {
+//   return new Promise(function(resolve) {
+//     setTimeout(function() {
+//       resolve(
+//         [{
+//           port: '3306',
+//           host: '127.0.0.1',
+//           username: 'root',
+//           password: '',
+//           database: 'test',
+//           dialect: 'mysql',
+//           pool: {
+//             max: 5,
+//             min: 0,
+//             idle: 10000,
+//           },
+//           storage: 'db/test-foo.sqlite',
+//           timezone: '+08:01',
+//           authenticated(sequelize) {
+//             sequelize.sync();
+//           },
+//         }, {
+//           port: '3306',
+//           host: '127.0.0.1',
+//           username: 'root',
+//           password: '',
+//           database: 'ga',
+//           dialect: 'mysql',
+//           pool: {
+//             max: 5,
+//             min: 0,
+//             idle: 10000,
+//           },
+//           storage: 'db/test-foo.sqlite',
+//           timezone: '+08:01',
+//           authenticated(sequelize) {
+//             sequelize.sync();
+//           },
+//         }]
+//       );
+//     }, time);
+//   });
+// };
+
+exports.sequelize = async () => {
+  //don't use sync in app.beforeStart() of app.js
+  const data = await getConfig(3000);
+  return data;
+};
+
 
 ctx.models[0] = app.models[0] = app.models.db1 = app.model
 ctx.models[1] = app.models[1] = app.models.db2

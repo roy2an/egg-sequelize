@@ -1,6 +1,6 @@
 'use strict';
 
-const req = function(time) {
+const getConfig = function(time) {
   return new Promise(function(resolve) {
     setTimeout(function() {
       resolve(
@@ -18,9 +18,9 @@ const req = function(time) {
           },
           storage: 'db/test-foo.sqlite',
           timezone: '+08:01',
-          authenticated: function(sequelize){
+          authenticated(sequelize) {
             sequelize.sync();
-          }
+          },
         }, {
           port: '3306',
           host: '127.0.0.1',
@@ -35,9 +35,9 @@ const req = function(time) {
           },
           storage: 'db/test-foo.sqlite',
           timezone: '+08:01',
-          authenticated: function(sequelize){
+          authenticated(sequelize) {
             sequelize.sync();
-          }
+          },
         }]
       );
     }, time);
@@ -45,7 +45,7 @@ const req = function(time) {
 };
 
 exports.sequelize = async () => {
-  const data = await req(3000);
+  const data = await getConfig(3000);
   return data;
 };
 
