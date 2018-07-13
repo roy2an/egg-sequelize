@@ -18,6 +18,9 @@ const req = function(time) {
           },
           storage: 'db/test-foo.sqlite',
           timezone: '+08:01',
+          authenticated: function(sequelize){
+            sequelize.sync();
+          }
         }, {
           port: '3306',
           host: '127.0.0.1',
@@ -32,6 +35,9 @@ const req = function(time) {
           },
           storage: 'db/test-foo.sqlite',
           timezone: '+08:01',
+          authenticated: function(sequelize){
+            sequelize.sync();
+          }
         }]
       );
     }, time);
