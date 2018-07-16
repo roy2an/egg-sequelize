@@ -113,10 +113,10 @@ exports.sequelize = async () => {
 app.beforeStart(function* () {
   // console.log('sync');
   yield app.model.sync();
-  // app.on('authenticated', function() {
-  //   app.model.sync();
-  // });
 });
+// app.on('authenticated', function() {
+//   app.model.sync();
+// });
 
 
 ctx.models[0] = app.models[0] = app.models.db1 = app.model
