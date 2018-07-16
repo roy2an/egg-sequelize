@@ -86,9 +86,6 @@ or
 //             min: 0,
 //             idle: 10000,
 //           },
-//           authenticated(sequelize) {
-//             sequelize.sync();
-//           },
 //         }, {
 //           port: '3306',
 //           host: '127.0.0.1',
@@ -101,9 +98,6 @@ or
 //             min: 0,
 //             idle: 10000,
 //           },
-//           authenticated(sequelize) {
-//             sequelize.sync();
-//           },
 //         }]
 //       );
 //     }, time);
@@ -111,10 +105,18 @@ or
 // };
 
 exports.sequelize = async () => {
-  //don't use sync in app.beforeStart() of app.js
   const data = await getConfig(3000);
   return data;
 };
+
+//app.js
+app.beforeStart(function* () {
+  // console.log('sync');
+  yield app.model.sync();
+  // app.on('authenticated', function() {
+  //   app.model.sync();
+  // });
+});
 
 
 ctx.models[0] = app.models[0] = app.models.db1 = app.model

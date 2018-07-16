@@ -15,10 +15,7 @@ const getConfig = function(time) {
             max: 5,
             min: 0,
             idle: 10000,
-          },
-          authenticated(sequelize) {
-            sequelize.sync();
-          },
+          }
         }, {
           port: '3306',
           host: '127.0.0.1',
@@ -30,10 +27,7 @@ const getConfig = function(time) {
             max: 5,
             min: 0,
             idle: 10000,
-          },
-          authenticated(sequelize) {
-            sequelize.sync();
-          },
+          }
         }]
       );
     }, time);
