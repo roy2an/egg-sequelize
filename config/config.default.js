@@ -7,6 +7,7 @@ exports.sequelize = {
   port: 3306,
   username: 'root',
   password: '',
+  extDirs: [],
 };
 
 // exports.sequelize = [{
