@@ -10,14 +10,14 @@ module.exports = app => {
   });
 
   User.associate = function() {
-    assert.ok(app.model.User);
+    assert.ok(app.model.Administrator);
     assert.ok(app.model.Post);
-    app.model.User.hasMany(app.model.Post, { as: 'posts', foreignKey: 'user_id' });
+    app.model.Administrator.hasMany(app.model.Post, { as: 'posts', foreignKey: 'user_id' });
   };
 
   User.test = function* () {
     assert(app.config);
-    assert(app.model.User === this);
+    assert(app.model.Administrator === this);
     const monkey = yield app.model.Subfolder_Monkey.create({ name: 'The Monkey' });
     assert(monkey.id);
     assert(monkey.isNewRecord === false);
