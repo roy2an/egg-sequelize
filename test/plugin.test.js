@@ -26,7 +26,7 @@ describe('test/plugin.test.js', () => {
     it('ctx model property getter', () => {
       const ctx = app.mockContext();
       assert.ok(ctx.model);
-      assert.ok(ctx.model.User);
+      assert.ok(ctx.model.Administrator);
       assert.ok(ctx.model.Subfolder_Monkey);
       assert.ok(ctx.model.Subfolder_Person);
       // assert.ok(ctx.models.ga.Tracing);
@@ -34,7 +34,7 @@ describe('test/plugin.test.js', () => {
 
     it('app model property getter', () => {
       assert.ok(app.model);
-      assert.ok(app.model.User);
+      assert.ok(app.model.Administrator);
       assert.ok(app.model.Subfolder_Monkey);
       assert.ok(app.model.Subfolder_Person);
       // assert.ok(app.models.ga.Tracing);
@@ -49,7 +49,7 @@ describe('test/plugin.test.js', () => {
 
     it('has right tableName', () => {
       assert(app.model.Subfolder_Person.tableName === 'people');
-      assert(app.model.User.tableName === 'users');
+      assert(app.model.Administrator.tableName === 'users');
       assert(app.model.Subfolder_Monkey.tableName === 'the_monkeys');
     });
   });
@@ -81,11 +81,11 @@ describe('test/plugin.test.js', () => {
 
   describe('Test model', () => {
     it('User.test method work', function* () {
-      yield app.model.User.test();
+      yield app.model.Administrator.test();
     });
 
     it('should work timestramp', function* () {
-      const user = yield app.model.User.create({ name: 'huacnlee' });
+      const user = yield app.model.Administrator.create({ name: 'huacnlee' });
       assert(user.isNewRecord === false);
       assert(user.name === 'huacnlee');
       assert(user.created_at !== null);
@@ -102,7 +102,7 @@ describe('test/plugin.test.js', () => {
         .send({
           name: 'popomore',
         });
-      const user = yield app.model.User.findOne({
+      const user = yield app.model.Administrator.findOne({
         where: { name: 'popomore' },
       });
       assert.ok(user);
@@ -120,8 +120,8 @@ describe('test/plugin.test.js', () => {
     it('ctx model associate init success', () => {
       const ctx = app.mockContext();
       assert.ok(ctx.model);
-      assert.ok(ctx.model.User);
-      assert.ok(ctx.model.User.prototype.hasPosts);
+      assert.ok(ctx.model.Administrator);
+      assert.ok(ctx.model.Administrator.prototype.hasPosts);
       assert.ok(ctx.model.Post);
     });
 

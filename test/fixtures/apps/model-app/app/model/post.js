@@ -10,9 +10,9 @@ module.exports = app => {
   });
 
   Post.associate = function() {
-    assert.ok(app.model.User);
+    assert.ok(app.model.Administrator);
     assert.ok(app.model.Post);
-    app.model.Post.belongsTo(app.model.User, { as: 'user', foreignKey: 'user_id' });
+    app.model.Post.belongsTo(app.model.Administrator, { as: 'user', foreignKey: 'user_id' });
   };
 
   return Post;

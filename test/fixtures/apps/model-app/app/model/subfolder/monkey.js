@@ -21,7 +21,7 @@ module.exports = app => {
   });
 
   Monkey.findUser = function* () {
-    return yield app.model.User.find({ id: 1 });
+    return yield app.model.Administrator.find({ id: 1 });
   };
 
   return Monkey;
