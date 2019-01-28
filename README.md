@@ -156,7 +156,7 @@ Please put models under `app/model` dir.
 
 | folder         | model file        | db     | class name                                                                                      |
 | -------------- | ----------------- | ------ | ----------------------------------------------------------------------------------------------- |
-| `.`            | `user.js`         | `db1`  | `app.model.User` or `app.models[0].User` or `app.models.db1.User`                                     |
+| `.`            | `user.js`         | `db1`  | `app.model.Administrator` or `app.models[0].User` or `app.models.db1.User`                                     |
 | `.`            | `person.js`       | `db1`  | `app.model.Person` or `app.models[0].Person` or `app.models.db1.Person`                               |
 | `.`            | `user_group.js`   | `db2`  | `app.models[1].UserGroup` or `app.models.db2.UserGroup`                                               |
 | `./subfolder/` | `monkey.js`       | `db1`  | `app.model.Subfolder_Monkey` or `app.models[0].Subfolder_Monkey` or `app.models.db1.Subfolder_Monkey` |
@@ -216,14 +216,14 @@ module.exports = app => {
     * index() {
       //const users = yield this.ctx.models[0].User.findAll();
       //const users = yield this.ctx.models.db1.User.findAll();
-      const users = yield this.ctx.model.User.findAll();
+      const users = yield this.ctx.model.Administrator.findAll();
       this.ctx.body = users;
     }
 
     * show() {
       //const user = yield this.ctx.models[0].User.findByLogin(this.ctx.params.login);
       //const user = yield this.ctx.models.db1.User.findByLogin(this.ctx.params.login);
-      const user = yield this.ctx.model.User.findByLogin(this.ctx.params.login);
+      const user = yield this.ctx.model.Administrator.findByLogin(this.ctx.params.login);
       yield user.logSignin();
       this.ctx.body = user;
     }
@@ -251,7 +251,7 @@ module.exports = app => {
   Post.associate = function() {
     // app.models[0].Post.belongsTo(app.models[0].User, { as: 'user' });
     // app.models.db1.Post.belongsTo(app.models.db1.User, { as: 'user' });
-    app.model.Post.belongsTo(app.model.User, { as: 'user' });
+    app.model.Post.belongsTo(app.model.Administrator, { as: 'user' });
   }
 
   return Post;
@@ -268,7 +268,7 @@ module.exports = app => {
       //const posts = yield this.ctx.models.db1.Post.findAll({
       const posts = yield this.ctx.model.Post.findAll({
         attributes: [ 'id', 'user_id' ],
-        include: { model: this.ctx.model.User, as: 'user' },
+        include: { model: this.ctx.model.Administrator, as: 'user' },
         where: { status: 'publish' },
         order: 'id desc',
       });
